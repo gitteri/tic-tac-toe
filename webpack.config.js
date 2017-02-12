@@ -20,7 +20,12 @@ module.exports = {
             // other preprocessors should work out of the box, no loader config like this nessessary.
             'scss': 'vue-style-loader!css-loader!sass-loader',
             'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-          }
+          },
+          postcss: [
+            require('autoprefixer')({
+              browsers: ['last 2 version', '> 1%']
+            })
+          ]
           // other vue-loader options go here
         }
       },
@@ -39,6 +44,7 @@ module.exports = {
     ]
   },
   resolve: {
+    extensions: [ '.js', '.vue' ],
     alias: {
       'vue$': 'vue/dist/vue.common.js'
     }
@@ -63,7 +69,9 @@ if (process.env.NODE_ENV === 'production') {
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
+      minimize : true,
+      sourceMap : false,
+      mangle: true,
       compress: {
         warnings: false
       }
