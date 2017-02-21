@@ -1,0 +1,12 @@
+$black: #474747;
+$grey: lighten($black, 50%);
+$grey--dark: lighten($black, 30%);
+$grey--light: lighten($black, 65%);
+$grey--lightest: lighten($black, 70%);
+$white: #fff;
+$blue: #47CDDE;
+$blue--dark: darken($blue, 10%);
+
+.text--right {
+  text-align: right;
+}

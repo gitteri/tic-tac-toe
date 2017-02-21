@@ -2,9 +2,9 @@
 
   <div>
     <!-- Otherwise, show the appropriate icon -->
-    <div v-if="player">
-      <img v-if="player === Players.X" src="./assets/x.svg">
-      <img v-else src="./assets/o.svg">
+    <div class="cell__played" v-if="player">
+      <img v-if="player === Players.X" src="../assets/x.svg">
+      <img v-else src="../assets/o.svg">
     </div>
     <!-- create a button if player is null -->
     <button class="cell__button" v-else-if="!gameOver" v-on:click="$emit('click')">play here</button>
@@ -38,24 +38,21 @@
 </script>
 
 
-<style>
-  .cell {
-    position: absolute;
-    top: 0;
-    left: 0;
-    border: 1px solid black;
-  }
-  .cell:nth-of-type(2n) {
-    left: 100px;
-  }
-
-  .cell:nth-of-type(3n) {
-    left: 200px;
-  }
+<style lang="scss">
+  @import "~styles/_variables.scss";
+  @import "~styles/_grid.scss";
 
   .cell__button {
     width: 100%;
     height: 100%;
     opacity: 0;
+  }
+
+  .cell__played {
+    text-align: center;
+
+    @media (min-width: $breakpoint-large) {
+      margin-top: 30px;
+    }
   }
 </style>

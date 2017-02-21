@@ -2,7 +2,7 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  entry: './src/main.js',
+  entry: './src/js/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
@@ -18,7 +18,7 @@ module.exports = {
             // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
             // the "scss" and "sass" values for the lang attribute to the right configs here.
             // other preprocessors should work out of the box, no loader config like this nessessary.
-            'scss': 'vue-style-loader!css-loader!sass-loader',
+            'scss': 'vue-style-loader!css-loader?importLoaders=2!postcss-loader!sass-loader',
             'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
           },
           postcss: [
@@ -44,9 +44,10 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: [ '.js', '.vue' ],
+    extensions: [ '.js', '.vue', '.scss' ],
     alias: {
-      'vue$': 'vue/dist/vue.common.js'
+      'vue$': 'vue/dist/vue.common.js',
+      'styles': path.resolve(__dirname, 'src/scss/')
     }
   },
   devServer: {

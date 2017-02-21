@@ -1,29 +1,32 @@
 <template>
-
-  <div class="app">
-    <h1>Tic-Tac-Toe</h1>
+  <div class="app container">
+    <h1 class="heading col-12">Tic-Tac-Toe</h1>
     <!-- Game Board -->
-    <div class="box game-board">
-      <div class="row" v-for="(row, i) in boardState">
-        <BoardCell
-          v-for="(player, j) in row"
-          class="cell"
-          v-on:click="cellClicked(i, j)"
-          v-bind:player="player"
-          v-bind:gameOver="currentGameState === GameStates.END"
-        />
+    <div class="row">
+      <div class="box col-7">
+        <div class="game-board">
+          <div class="game-board__row row" v-for="(row, i) in boardState">
+            <BoardCell
+              v-for="(player, j) in row"
+              class="cell"
+              v-on:click="cellClicked(i, j)"
+              v-bind:player="player"
+              v-bind:gameOver="currentGameState === GameStates.END"
+            />
+          </div>
+        </div>
       </div>
-    </div>
-    <!-- Extras -->
-    <div class="box">
-      <Indicator
-        v-bind:player="currentPlayer"
-        v-bind:gameState="currentGameState"
-      />
-      <div>
-        <button v-bind:disabled="currentGameState === GameStates.START" v-on:click="startOverClicked">
-          Start Over
-        </button>
+      <!-- Extras -->
+      <div class="box sidebar row col-5">
+        <Indicator
+          v-bind:player="currentPlayer"
+          v-bind:gameState="currentGameState"
+        />
+        <div class="start-over">
+          <button class="button--blue" v-bind:disabled="currentGameState === GameStates.START" v-on:click="startOverClicked">
+            Start Over
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -121,14 +124,25 @@
 
 
 <style lang="scss">
+  @import "~styles/_variables.scss";
+  @import "~styles/_grid.scss";
 
   .app {
-    margin: 100px;
+    border-color: $black;
+    color: $black;
+  }
+
+  .heading {
+    background-color: $grey--light;
+    border-bottom: 8px solid $grey--dark;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    padding: 2rem 0;
+    font-size: 2rem;
   }
 
   .box {
-    margin: 10px;
-    border: 1px solid gray;
     display: inline-block;
   }
 
@@ -136,12 +150,23 @@
     position: relative;
     width: 300px;
     height: 300px;
+
+    @media (min-width: $breakpoint-large) {
+      width: 450px;
+      height: 450px;
+    }
+
+    @media (max-width: $breakpoint-med) {
+      margin: 0 auto;
+    }
   }
 
-  .row {
-    position: relative;
-    width: 100%;
+  .game-board__row {
     height: 100px;
+
+    @media (min-width: $breakpoint-large) {
+      height: 150px;
+    }
   }
 
   .cell {
@@ -149,6 +174,69 @@
     width: 100px;
     height: 100px;
     box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-width: 2px;
+    border-style: solid;
+
+    @media (min-width: $breakpoint-large) {
+      width: 150px;
+      height: 150px;
+    }
+
+    &:nth-of-type(2n) {
+      left: 100px;
+
+      @media (min-width: $breakpoint-large) {
+        left: 150px;
+      }
+    }
+
+    &:nth-of-type(3n) {
+      left: 200px;
+
+      @media (min-width: $breakpoint-large) {
+        left: 300px;
+      }
+    }
   }
 
+  .sidebar {
+    height: auto;
+
+    @media (min-width: $breakpoint-med) {
+      height: 450px;
+    }
+  }
+
+  .start-over {
+    width: 100%;
+    margin: 2rem 0;
+
+    @media (min-width: $breakpoint-med) {
+      bottom: 0;
+      position: absolute;
+    }
+  }
+
+  .button--blue {
+    margin: 0 auto;
+    display: block;
+    width: 60%;
+    padding: 1rem;
+    background-color: $blue;
+    border: 0;
+    color: $white;
+    border-bottom: 8px solid $blue--dark;
+
+    &:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    @media (min-width: $breakpoint-med) {
+      border-radius: 10px 10px 0 0;
+    }
+  }
 </style>
